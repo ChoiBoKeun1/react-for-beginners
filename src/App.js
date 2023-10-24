@@ -25,6 +25,11 @@ function App() {
     console.log("I run when 'counter' changes.");
   }, [counter]);
 
+  // keyword나 counter가 변화할때 실행된다
+  useEffect(() => {
+    console.log("I run when 'keyword' or 'counter' changes.");
+  }, [keyword, counter]);
+
   return (
     <div>
       <input
