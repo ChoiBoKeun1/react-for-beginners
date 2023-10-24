@@ -1,45 +1,47 @@
 import { useState, useEffect } from "react";
 
-function App() {
-  // state가 변화할때 모든 component는 다시 실행된다
-  // 가끔 component의 내부 몇몇 코드는
-  // 처음 한번만 실행되고 다시는 실행되지 않도록 하고 싶을 때
-  // useEffect를 사용한다
-  const [counter, setValue] = useState(0);
-  const [keyword, setKeyword] = useState("");
-  const onClick = () => setValue((prev) => prev + 1);
-  const onChange = (event) => setKeyword(event.target.value);
-
-  // 처음 한번만 실행된다
+// component가 destory 될 때 호출되는 함수
+// cleanup 함수 라고 부른다.
+function Hello() {
   useEffect(() => {
-    console.log("I run only once.");
+    console.log("hi :)");
+    return () => console.log("bye :(");
   }, []);
+  /*
+  useEffect(function () {
+    console.log("hi :)");
+    return function () {
+      console.log("bye :(");
+    };
+  }, []);
+  */
+  return <h1>Hello</h1>;
+}
+/*
+밑의 함수와 같다.
 
-  // keyword가 변화할때만 실행된다
-  useEffect(() => {
-    console.log("I run when 'keyword' changes.");
-  }, [keyword]);
+funtion Hello() {
+  function hiFn() {
+    console.log("hi :)");
+    return byFn;
+  }
 
-  // counter가 변화할때만 실행된다
-  useEffect(() => {
-    console.log("I run when 'counter' changes.");
-  }, [counter]);
+  function byFn() {
+    console.log("bye :(");
+  }
 
-  // keyword나 counter가 변화할때 실행된다
-  useEffect(() => {
-    console.log("I run when 'keyword' or 'counter' changes.");
-  }, [keyword, counter]);
+  useEffect(hiFn, []);
+  return <h1>Hello</h1>;
+}
+*/
 
+function App() {
+  const [showing, setShowing] = useState(false);
+  const onClick = () => setShowing((prev) => !showing);
   return (
     <div>
-      <input
-        value={keyword}
-        type="text"
-        onChange={onChange}
-        placeholder="Search here..."
-      />
-      <h1>{counter}</h1>
-      <button onClick={onClick}>Click me</button>
+      {showing ? <Hello /> : null}
+      <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
     </div>
   );
 }
