@@ -6,15 +6,33 @@ function App() {
   // 처음 한번만 실행되고 다시는 실행되지 않도록 하고 싶을 때
   // useEffect를 사용한다
   const [counter, setValue] = useState(0);
+  const [keyword, setKeyword] = useState("");
   const onClick = () => setValue((prev) => prev + 1);
-  console.log("i run all the time");
+  const onChange = (event) => setKeyword(event.target.value);
 
+  // 처음 한번만 실행된다
   useEffect(() => {
-    console.log("CALL THE API ...");
+    console.log("I run only once.");
   }, []);
+
+  // keyword가 변화할때만 실행된다
+  useEffect(() => {
+    console.log("I run when 'keyword' changes.");
+  }, [keyword]);
+
+  // counter가 변화할때만 실행된다
+  useEffect(() => {
+    console.log("I run when 'counter' changes.");
+  }, [counter]);
 
   return (
     <div>
+      <input
+        value={keyword}
+        type="text"
+        onChange={onChange}
+        placeholder="Search here..."
+      />
       <h1>{counter}</h1>
       <button onClick={onClick}>Click me</button>
     </div>
