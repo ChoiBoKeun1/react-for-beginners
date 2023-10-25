@@ -1,47 +1,35 @@
-import { useState, useEffect } from "react";
-
-// component가 destory 될 때 호출되는 함수
-// cleanup 함수 라고 부른다.
-function Hello() {
-  useEffect(() => {
-    console.log("hi :)");
-    return () => console.log("bye :(");
-  }, []);
-  /*
-  useEffect(function () {
-    console.log("hi :)");
-    return function () {
-      console.log("bye :(");
-    };
-  }, []);
-  */
-  return <h1>Hello</h1>;
-}
-/*
-밑의 함수와 같다.
-
-funtion Hello() {
-  function hiFn() {
-    console.log("hi :)");
-    return byFn;
-  }
-
-  function byFn() {
-    console.log("bye :(");
-  }
-
-  useEffect(hiFn, []);
-  return <h1>Hello</h1>;
-}
-*/
+import { useState } from "react";
 
 function App() {
-  const [showing, setShowing] = useState(false);
-  const onClick = () => setShowing((prev) => !showing);
+  const [toDo, setToDo] = useState("");
+  const [toDos, setToDos] = useState([]);
+  const onChange = (event) => setToDo(event.target.value);
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if (toDo === "") {
+      return;
+    }
+    // 절대 이 안에서는
+    // toDo = "lalala" 이런식으로 하면 안됨
+    // setToDo("lalala") 이렇게 해야함. 항상 수정하는 함수를 쓴다.
+
+    // list 업데이트 하는법
+    setToDos((currentArray) => [toDo, ...currentArray]);
+    setToDo("");
+  };
+  console.log(toDos);
   return (
     <div>
-      {showing ? <Hello /> : null}
-      <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
+      <h1>My To Dos ({toDos.length})</h1>
+      <form onSubmit={onSubmit}>
+        <input
+          onChange={onChange}
+          value={toDo}
+          type="text"
+          placeholder="Write your to do..."
+        />
+        <button>Add To Do</button>
+      </form>
     </div>
   );
 }
