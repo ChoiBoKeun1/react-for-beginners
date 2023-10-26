@@ -14,10 +14,9 @@ function App() {
     // setToDo("lalala") 이렇게 해야함. 항상 수정하는 함수를 쓴다.
 
     // list 업데이트 하는법
-    setToDos((currentArray) => [toDo, ...currentArray]);
+    setToDos((currentArray) => [...currentArray, toDo]);
     setToDo("");
   };
-  console.log(toDos);
   return (
     <div>
       <h1>My To Dos ({toDos.length})</h1>
@@ -30,6 +29,13 @@ function App() {
         />
         <button>Add To Do</button>
       </form>
+      <hr />
+      {/* array 안의 값 : item. 이름은 자기 마음대로
+        index는 각각의 아이템의 index. li의 key로 쓰임. 안쓰면 경고 발생.
+      */}
+      {toDos.map((item, index) => (
+        <li key={index}>{item}</li>
+      ))}
     </div>
   );
 }
