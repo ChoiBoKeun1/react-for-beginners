@@ -1,22 +1,21 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./routes/Home";
-import Detail from "./routes/Detail";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import Home from "./routes/Home";
+// import Detail from "./routes/Detail";
 
 // react router v6 문법을 따름
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/movie" element={<Detail />} />
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </Router>
-  );
-}
+// function App() {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/movie:id" element={<Detail />} />
+//         <Route path="/" element={<Home />} />
+//       </Routes>
+//     </Router>
+//   );
+// }
 
-export default App;
+// export default App;
 
-/*
 //최신버전 v6.17.0
 import Home from "./routes/Home";
 import Detail from "./routes/Detail";
@@ -28,7 +27,7 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: "/movie",
+    path: "/movie/:id",
     element: <Detail />,
   },
 ]);
@@ -38,4 +37,3 @@ function App() {
 }
 
 export default App;
-*/
